@@ -80,6 +80,30 @@
         .content.active {
             display: block;
         }
+        #referral-code {
+            margin-top: 20px;
+        }
+        #referral-input {
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #444;
+        }
+        #referral-button {
+            padding: 10px 20px;
+            margin-left: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #4caf50;
+            color: white;
+            cursor: pointer;
+        }
+        #referral-button:hover {
+            background-color: #45a049;
+        }
+        #referral-points {
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -98,6 +122,11 @@
     </div>
     <div id="page3" class="content">
         <h1>Referral Page</h1>
+        <div id="referral-code">
+            <input type="text" id="referral-input" placeholder="Enter referral code">
+            <button id="referral-button">Apply</button>
+        </div>
+        <div id="referral-points">Your referral points: <span id="referral-points-value">0</span></div>
     </div>
 
     <div class="bottom-bar">
@@ -108,9 +137,11 @@
 
     <script>
         let progress = 500;
+        let referralPoints = 0; // Kullanıcının referans puanları
 
         const dollar = document.getElementById('dollar');
         const progressBar = document.getElementById('progress-bar');
+        const referralPointsValue = document.getElementById('referral-points-value');
 
         dollar.addEventListener('click', (event) => {
             if (progress > 0) {
@@ -145,6 +176,17 @@
             });
             document.getElementById(pageId).classList.add('active');
         }
+
+        document.getElementById('referral-button').addEventListener('click', () => {
+            const referralCode = document.getElementById('referral-input').value.trim();
+
+            // Basit bir kontrol, gerçek uygulamada bir sunucu veya veritabanı ile kontrol edilmelidir
+            if (referralCode) {
+                referralPoints += 1000; // Her referans için 1000 puan
+                referralPointsValue.textContent = referralPoints;
+                document.getElementById('referral-input').value = ''; // Giriş kutusunu temizle
+            }
+        });
     </script>
 
 </body>
