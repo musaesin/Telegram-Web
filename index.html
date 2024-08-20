@@ -14,6 +14,7 @@
             margin: 0;
             background-color: #f0f0f0;
             font-family: Arial, sans-serif;
+            overflow: hidden; /* Ekranı kaydırmayı engeller */
         }
         #dollar {
             font-size: 100px;
@@ -21,7 +22,6 @@
             transition: transform 0.2s ease;
             outline: none;
             box-shadow: none;
-            position: relative;
         }
         #dollar:active {
             transform: scale(1.2);
@@ -42,25 +42,21 @@
             color: white;
             font-weight: bold;
         }
-        .click-indicator {
+        .click-text {
             position: absolute;
             font-size: 20px;
             color: red;
             pointer-events: none;
             transition: opacity 0.5s ease;
-            opacity: 0;
         }
     </style>
 </head>
 <body>
 
-    <div id="dollar" tabindex="0">
-        💵
-        <div id="click-indicator" class="click-indicator">+1</div>
-    </div>
+    <div id="dollar" tabindex="0">💵</div>
 
     <div id="progress-container">
-        <div id="progress-bar">500</div>
+        <div id="progress-bar">600</div>
     </div>
 
     <script>
@@ -68,7 +64,6 @@
 
         const dollar = document.getElementById('dollar');
         const progressBar = document.getElementById('progress-bar');
-        const clickIndicator = document.getElementById('click-indicator');
 
         dollar.addEventListener('click', (event) => {
             if (progress > 0) {
@@ -76,15 +71,21 @@
                 progressBar.style.width = `${(progress / 500) * 100}%`;
                 progressBar.textContent = progress;
 
-                // Show click indicator
-                clickIndicator.style.left = `${event.clientX - dollar.getBoundingClientRect().left}px`;
-                clickIndicator.style.top = `${event.clientY - dollar.getBoundingClientRect().top}px`;
-                clickIndicator.style.opacity = 1;
+                // Tıklanan konumda +1 göstermek için
+                const clickText = document.createElement('div');
+                clickText.className = 'click-text';
+                clickText.textContent = '+1';
+                clickText.style.left = `${event.clientX}px`;
+                clickText.style.top = `${event.clientY}px`;
+                document.body.appendChild(clickText);
 
-                // Hide click indicator after a short delay
+                // +1 metnini ekrandan kaldırmak için
                 setTimeout(() => {
-                    clickIndicator.style.opacity = 0;
-                }, 500);
+                    clickText.style.opacity = 0;
+                    setTimeout(() => {
+                        document.body.removeChild(clickText);
+                    }, 500); // Metin kaybolduktan sonra öğeyi kaldırma süresi
+                }, 500); // Metin görünürlük süresi
             }
         });
     </script>
