@@ -92,6 +92,7 @@
             color: #fff;
             cursor: pointer;
             display: inline-block;
+            text-align: center;
         }
         #referral-link:hover {
             background-color: #4caf50;
@@ -137,7 +138,7 @@
     <div id="page3" class="content">
         <h1>Referral Page</h1>
         <div id="referral-code">
-            <div id="referral-link">https://yourwebsite.com/?ref=123456</div>
+            <div id="referral-link">https://t.me/mini_app_test_001_bot?start=ref_sannkWJ9Ff</div>
             <input type="text" id="referral-input" placeholder="Enter referral code">
             <button id="referral-button">Apply</button>
         </div>
@@ -153,6 +154,7 @@
     <script>
         let progress = 500;
         let referralPoints = 0; // Kullanıcının referans puanları
+        const referralCode = 'ref_sannkWJ9Ff'; // Örnek referans kodu
 
         const dollar = document.getElementById('dollar');
         const progressBar = document.getElementById('progress-bar');
@@ -194,15 +196,24 @@
         }
 
         document.getElementById('referral-button').addEventListener('click', () => {
-            const referralCode = document.getElementById('referral-input').value.trim();
+            const inputCode = document.getElementById('referral-input').value.trim();
 
-            // Bu örnekte, her referans kodunu geçerli olarak kabul ediyoruz
-            if (referralCode) {
+            // Basit bir kontrol, gerçek uygulamada sunucu tarafında kontrol edilmelidir
+            if (inputCode === referralCode) {
                 referralPoints += 1000; // Her referans için 1000 puan
                 referralPointsValue.textContent = referralPoints;
                 document.getElementById('referral-input').value = ''; // Giriş kutusunu temizle
             }
         });
+
+        // Referans linkini dinamik olarak güncelle
+        const generateReferralLink = () => {
+            const baseUrl = 'https://t.me/mini_app_test_001_bot?start=';
+            const uniqueCode = 'ref_' + Math.random().toString(36).substring(2, 15);
+            referralLink.textContent = baseUrl + uniqueCode;
+        };
+
+        generateReferralLink(); // Sayfa yüklendiğinde referans linkini oluştur
     </script>
 
 </body>
