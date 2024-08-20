@@ -12,9 +12,10 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-color: #f0f0f0;
+            background-color: #333; /* Koyu arka plan */
+            color: #fff; /* Açık metin rengi */
             font-family: Arial, sans-serif;
-            overflow: hidden; /* Ekranı kaydırmayı engeller */
+            overflow: hidden;
         }
         #dollar {
             font-size: 150px; /* Büyütme */
@@ -28,7 +29,7 @@
         }
         #progress-container {
             width: 80%;
-            background-color: #ddd;
+            background-color: #555; /* Koyu gri arka plan */
             border-radius: 20px;
             margin-top: 20px;
         }
@@ -51,6 +52,34 @@
             transform: scale(1.5); /* Animasyon büyüklüğü */
             opacity: 0;
         }
+        .bottom-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            background-color: #222; /* Koyu arka plan */
+            padding: 10px 0;
+            border-top: 1px solid #444; /* Üst sınır */
+        }
+        .bottom-bar div {
+            text-align: center;
+            color: #fff;
+            cursor: pointer;
+            font-size: 24px;
+        }
+        .bottom-bar div:hover {
+            color: #4caf50; /* Hover rengi */
+        }
+        .content {
+            display: none;
+            text-align: center;
+        }
+        .content.active {
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -59,6 +88,22 @@
 
     <div id="progress-container">
         <div id="progress-bar">500</div>
+    </div>
+
+    <div id="page1" class="content active">
+        <h1>Score Collection Page</h1>
+    </div>
+    <div id="page2" class="content">
+        <h1>Score Spending Page</h1>
+    </div>
+    <div id="page3" class="content">
+        <h1>Referral Page</h1>
+    </div>
+
+    <div class="bottom-bar">
+        <div onclick="showPage('page1')">🏆</div>
+        <div onclick="showPage('page2')">💸</div>
+        <div onclick="showPage('page3')">🔗</div>
     </div>
 
     <script>
@@ -73,7 +118,6 @@
                 progressBar.style.width = `${(progress / 500) * 100}%`;
                 progressBar.textContent = progress;
 
-                // Tıklanan konumda +1 göstermek için
                 const clickText = document.createElement('div');
                 clickText.className = 'click-text';
                 clickText.textContent = '+1';
@@ -81,21 +125,26 @@
                 clickText.style.top = `${event.clientY}px`;
                 document.body.appendChild(clickText);
 
-                // +1 metnini animasyonlu ve kısa süre görünür yapma
                 requestAnimationFrame(() => {
                     clickText.style.opacity = 1;
                     clickText.style.transform = 'scale(1)';
                 });
 
-                // +1 metnini ekrandan kaldırmak için
                 setTimeout(() => {
                     clickText.style.opacity = 0;
                     setTimeout(() => {
                         document.body.removeChild(clickText);
-                    }, 200); // Animasyon süresi
-                }, 200); // Metin görünürlük süresi
+                    }, 200);
+                }, 200);
             }
         });
+
+        function showPage(pageId) {
+            document.querySelectorAll('.content').forEach(page => {
+                page.classList.remove('active');
+            });
+            document.getElementById(pageId).classList.add('active');
+        }
     </script>
 
 </body>
