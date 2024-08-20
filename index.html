@@ -83,11 +83,25 @@
         #referral-code {
             margin-top: 20px;
         }
+        #referral-link {
+            font-size: 16px;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #444;
+            background-color: #555;
+            color: #fff;
+            cursor: pointer;
+            display: inline-block;
+        }
+        #referral-link:hover {
+            background-color: #4caf50;
+        }
         #referral-input {
             padding: 10px;
             font-size: 16px;
             border-radius: 5px;
             border: 1px solid #444;
+            margin-top: 10px;
         }
         #referral-button {
             padding: 10px 20px;
@@ -123,6 +137,7 @@
     <div id="page3" class="content">
         <h1>Referral Page</h1>
         <div id="referral-code">
+            <div id="referral-link">https://yourwebsite.com/?ref=123456</div>
             <input type="text" id="referral-input" placeholder="Enter referral code">
             <button id="referral-button">Apply</button>
         </div>
@@ -142,6 +157,7 @@
         const dollar = document.getElementById('dollar');
         const progressBar = document.getElementById('progress-bar');
         const referralPointsValue = document.getElementById('referral-points-value');
+        const referralLink = document.getElementById('referral-link');
 
         dollar.addEventListener('click', (event) => {
             if (progress > 0) {
@@ -180,7 +196,7 @@
         document.getElementById('referral-button').addEventListener('click', () => {
             const referralCode = document.getElementById('referral-input').value.trim();
 
-            // Basit bir kontrol, gerçek uygulamada bir sunucu veya veritabanı ile kontrol edilmelidir
+            // Bu örnekte, her referans kodunu geçerli olarak kabul ediyoruz
             if (referralCode) {
                 referralPoints += 1000; // Her referans için 1000 puan
                 referralPointsValue.textContent = referralPoints;
