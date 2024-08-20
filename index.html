@@ -3,10 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mini App</title>
+    <title>Dollar Clicker</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+        #dollar {
+            font-size: 100px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        #dollar:active {
+            transform: scale(1.2);
+        }
+        #progress-container {
+            width: 80%;
+            background-color: #ddd;
+            border-radius: 20px;
+            margin-top: 20px;
+        }
+        #progress-bar {
+            width: 100%;
+            height: 30px;
+            background-color: #4caf50;
+            border-radius: 20px;
+            text-align: center;
+            line-height: 30px;
+            color: white;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
-    <h1>Welcome to the Mini App!</h1>
-    <p>This is a simple web page integrated with Telegram.</p>
+
+    <div id="dollar">💵</div>
+
+    <div id="progress-container">
+        <div id="progress-bar">500</div>
+    </div>
+
+    <script>
+        let progress = 500;
+
+        const dollar = document.getElementById('dollar');
+        const progressBar = document.getElementById('progress-bar');
+
+        dollar.addEventListener('click', () => {
+            if (progress > 0) {
+                progress--;
+                progressBar.style.width = `${(progress / 500) * 100}%`;
+                progressBar.textContent = progress;
+            }
+        });
+    </script>
+
 </body>
 </html>
