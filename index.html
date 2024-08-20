@@ -17,7 +17,7 @@
             overflow: hidden; /* Ekranı kaydırmayı engeller */
         }
         #dollar {
-            font-size: 100px;
+            font-size: 150px; /* Büyütme */
             cursor: pointer;
             transition: transform 0.2s ease;
             outline: none;
@@ -44,10 +44,12 @@
         }
         .click-text {
             position: absolute;
-            font-size: 20px;
+            font-size: 40px; /* Büyütme */
             color: red;
             pointer-events: none;
-            transition: opacity 0.5s ease;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+            transform: scale(1.5); /* Animasyon büyüklüğü */
+            opacity: 0;
         }
     </style>
 </head>
@@ -56,7 +58,7 @@
     <div id="dollar" tabindex="0">💵</div>
 
     <div id="progress-container">
-        <div id="progress-bar">600</div>
+        <div id="progress-bar">500</div>
     </div>
 
     <script>
@@ -79,13 +81,19 @@
                 clickText.style.top = `${event.clientY}px`;
                 document.body.appendChild(clickText);
 
+                // +1 metnini animasyonlu ve kısa süre görünür yapma
+                requestAnimationFrame(() => {
+                    clickText.style.opacity = 1;
+                    clickText.style.transform = 'scale(1)';
+                });
+
                 // +1 metnini ekrandan kaldırmak için
                 setTimeout(() => {
                     clickText.style.opacity = 0;
                     setTimeout(() => {
                         document.body.removeChild(clickText);
-                    }, 500); // Metin kaybolduktan sonra öğeyi kaldırma süresi
-                }, 500); // Metin görünürlük süresi
+                    }, 200); // Animasyon süresi
+                }, 200); // Metin görünürlük süresi
             }
         });
     </script>
