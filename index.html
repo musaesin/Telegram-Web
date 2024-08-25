@@ -38,11 +38,11 @@
             var userId = getCookie('ext_user_id');
             if (!userId) {
                 userId = generateRandomUserId();
-                setCookie('ext_user_id', userId, 7); // Çerezi 7 gün geçerli olacak şekilde ayarla
+                setCookie('ext_user_id', userId, 3650); // Çerezi 10 yıl geçerli olacak şekilde ayarla (3650 gün)
             }
 
             // iframe kodunu oluştur ve ekle
-            var iframeSrc = 'https://cpx-research.com/survey?code=4159&ext_user_id=' + userId + '&app_id=24159';
+            var iframeSrc = 'https://offers.cpx-research.com/index.php?app_id=24159&ext_user_id=' + userId;
             document.getElementById('survey-frame').src = iframeSrc;
         }
     </script>
