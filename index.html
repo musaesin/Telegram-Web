@@ -3,218 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dollar Clicker</title>
-    <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #333; /* Koyu arka plan */
-            color: #fff; /* Açık metin rengi */
-            font-family: Arial, sans-serif;
-            overflow: hidden;
-        }
-        #dollar {
-            font-size: 150px; /* Büyütme */
-            cursor: pointer;
-            transition: transform 0.2s ease;
-            outline: none;
-            box-shadow: none;
-        }
-        #dollar:active {
-            transform: scale(1.2);
-        }
-        #progress-container {
-            width: 80%;
-            background-color: #555; /* Koyu gri arka plan */
-            border-radius: 20px;
-            margin-top: 20px;
-        }
-        #progress-bar {
-            width: 100%;
-            height: 30px;
-            background-color: #4caf50;
-            border-radius: 20px;
-            text-align: center;
-            line-height: 30px;
-            color: white;
-            font-weight: bold;
-        }
-        .click-text {
-            position: absolute;
-            font-size: 40px; /* Büyütme */
-            color: red;
-            pointer-events: none;
-            transition: opacity 0.2s ease, transform 0.2s ease;
-            transform: scale(1.5); /* Animasyon büyüklüğü */
-            opacity: 0;
-        }
-        .bottom-bar {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            background-color: #222; /* Koyu arka plan */
-            padding: 10px 0;
-            border-top: 1px solid #444; /* Üst sınır */
-        }
-        .bottom-bar div {
-            text-align: center;
-            color: #fff;
-            cursor: pointer;
-            font-size: 24px;
-        }
-        .bottom-bar div:hover {
-            color: #4caf50; /* Hover rengi */
-        }
-        .content {
-            display: none;
-            text-align: center;
-        }
-        .content.active {
-            display: block;
-        }
-        #referral-code {
-            margin-top: 20px;
-        }
-        #referral-link {
-            font-size: 16px;
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #444;
-            background-color: #555;
-            color: #fff;
-            cursor: pointer;
-            display: inline-block;
-            text-align: center;
-        }
-        #referral-link:hover {
-            background-color: #4caf50;
-        }
-        #referral-input {
-            padding: 10px;
-            font-size: 16px;
-            border-radius: 5px;
-            border: 1px solid #444;
-            margin-top: 10px;
-        }
-        #referral-button {
-            padding: 10px 20px;
-            margin-left: 10px;
-            border: none;
-            border-radius: 5px;
-            background-color: #4caf50;
-            color: white;
-            cursor: pointer;
-        }
-        #referral-button:hover {
-            background-color: #45a049;
-        }
-        #referral-points {
-            margin-top: 20px;
-        }
-    </style>
+    <title>Anket Web Sitesi</title>
 </head>
 <body>
-
-    <div id="dollar" tabindex="0">💵</div>
-
-    <div id="progress-container">
-        <div id="progress-bar">500</div>
-    </div>
-
-    <div id="page1" class="content active">
-        <h1>Score Collection Page</h1>
-    </div>
-    <div id="page2" class="content">
-        <h1>Score Spending Page</h1>
-    </div>
-    <div id="page3" class="content">
-        <h1>Referral Page</h1>
-        <div id="referral-code">
-            <div id="referral-link">https://t.me/mini_app_test_001_bot?start=ref_sannkWJ9Ff</div>
-            <input type="text" id="referral-input" placeholder="Enter referral code">
-            <button id="referral-button">Apply</button>
-        </div>
-        <div id="referral-points">Your referral points: <span id="referral-points-value">0</span></div>
-    </div>
-
-    <div class="bottom-bar">
-        <div onclick="showPage('page1')">🏆</div>
-        <div onclick="showPage('page2')">💸</div>
-        <div onclick="showPage('page3')">🔗</div>
-    </div>
-
+    <h1>Anketler</h1>
+    <!-- Anket widget'ı burada görünecek -->
+    <script type="text/javascript" src="https://cdn.cpx-research.com/assets/js/script_tag_v2.0.js"></script>
     <script>
-        let progress = 500;
-        let referralPoints = 0; // Kullanıcının referans puanları
-        const referralCode = 'ref_sannkWJ9Ff'; // Örnek referans kodu
-
-        const dollar = document.getElementById('dollar');
-        const progressBar = document.getElementById('progress-bar');
-        const referralPointsValue = document.getElementById('referral-points-value');
-        const referralLink = document.getElementById('referral-link');
-
-        dollar.addEventListener('click', (event) => {
-            if (progress > 0) {
-                progress--;
-                progressBar.style.width = `${(progress / 500) * 100}%`;
-                progressBar.textContent = progress;
-
-                const clickText = document.createElement('div');
-                clickText.className = 'click-text';
-                clickText.textContent = '+1';
-                clickText.style.left = `${event.clientX}px`;
-                clickText.style.top = `${event.clientY}px`;
-                document.body.appendChild(clickText);
-
-                requestAnimationFrame(() => {
-                    clickText.style.opacity = 1;
-                    clickText.style.transform = 'scale(1)';
-                });
-
-                setTimeout(() => {
-                    clickText.style.opacity = 0;
-                    setTimeout(() => {
-                        document.body.removeChild(clickText);
-                    }, 200);
-                }, 200);
+        var config = {
+            user_id: "your_user_id",
+            email: "",
+            username: "",
+            secure_hash: "",
+            subid_1: "",
+            subid_2: "",
+            style_config: {
+                text_color: "#2b2b2b",
+                survey_box: {
+                    topbar_background_color: "#ffaf20",
+                    box_background_color: "white",
+                    rounded_borders: true,
+                    stars_filled: "black"
+                }
+            },
+            script_config: [], // Gerekli scriptler burada
+            debug: false,
+            useIFrame: true,
+            iFramePosition: 1,
+            functions: {
+                no_surveys_available: () => {
+                    console.log("No surveys available function here");
+                },
+                count_new_surveys: (countsurveys) => {
+                    console.log("Count surveys function here, count:", countsurveys);
+                },
+                get_all_surveys: (surveys) => {
+                    console.log("Get all surveys function here, surveys: ", surveys);
+                },
+                get_transaction: (transactions) => {
+                    console.log("Transaction function here, transaction: ", transactions);
+                }
             }
-        });
-
-        function showPage(pageId) {
-            document.querySelectorAll('.content').forEach(page => {
-                page.classList.remove('active');
-            });
-            document.getElementById(pageId).classList.add('active');
-        }
-
-        document.getElementById('referral-button').addEventListener('click', () => {
-            const inputCode = document.getElementById('referral-input').value.trim();
-
-            // Basit bir kontrol, gerçek uygulamada sunucu tarafında kontrol edilmelidir
-            if (inputCode === referralCode) {
-                referralPoints += 1000; // Her referans için 1000 puan
-                referralPointsValue.textContent = referralPoints;
-                document.getElementById('referral-input').value = ''; // Giriş kutusunu temizle
-            }
-        });
-
-        // Referans linkini dinamik olarak güncelle
-        const generateReferralLink = () => {
-            const baseUrl = 'https://t.me/mini_app_test_001_bot?start=';
-            const uniqueCode = 'ref_' + Math.random().toString(36).substring(2, 15);
-            referralLink.textContent = baseUrl + uniqueCode;
         };
-
-        generateReferralLink(); // Sayfa yüklendiğinde referans linkini oluştur
+        window.config = config;
     </script>
-
 </body>
 </html>
