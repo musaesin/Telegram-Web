@@ -41,6 +41,9 @@
                 setCookie('ext_user_id', userId, 3650); // Çerezi 10 yıl geçerli olacak şekilde ayarla (3650 gün)
             }
 
+            // Başlığa kullanıcı ID'sini ekle
+            document.getElementById('page-title').textContent = 'Anket Sayfası - User ID: ' + userId;
+
             // iframe kodunu oluştur ve ekle
             var iframeSrc = 'https://offers.cpx-research.com/index.php?app_id=24159&ext_user_id=' + userId;
             document.getElementById('survey-frame').src = iframeSrc;
@@ -48,7 +51,7 @@
     </script>
 </head>
 <body onload="initialize()">
-    <h1>Anket Sayfası</h1>
+    <h1 id="page-title">Anket Sayfası</h1>
     <iframe id="survey-frame" width="100%" height="500" frameborder="0" allowfullscreen></iframe>
 </body>
 </html>
