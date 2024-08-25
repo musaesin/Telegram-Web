@@ -3,49 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anket Web Sitesi</title>
-</head>
-<body>
-    <h1>Anketler</h1>
-    <!-- Anket widget'ı burada görünecek -->
-    <script type="text/javascript" src="https://cdn.cpx-research.com/assets/js/script_tag_v2.0.js"></script>
+    <title>Anket Sayfası</title>
     <script>
-        var config = {
-            user_id: "your_user_id",
-            email: "",
-            username: "",
-            secure_hash: "",
-            subid_1: "",
-            subid_2: "",
-            style_config: {
-                text_color: "#2b2b2b",
-                survey_box: {
-                    topbar_background_color: "#ffaf20",
-                    box_background_color: "white",
-                    rounded_borders: true,
-                    stars_filled: "black"
-                }
-            },
-            script_config: [], // Gerekli scriptler burada
-            debug: false,
-            useIFrame: true,
-            iFramePosition: 1,
-            functions: {
-                no_surveys_available: () => {
-                    console.log("No surveys available function here");
-                },
-                count_new_surveys: (countsurveys) => {
-                    console.log("Count surveys function here, count:", countsurveys);
-                },
-                get_all_surveys: (surveys) => {
-                    console.log("Get all surveys function here, surveys: ", surveys);
-                },
-                get_transaction: (transactions) => {
-                    console.log("Transaction function here, transaction: ", transactions);
-                }
+        // Çerezleri ayarlamak için bir fonksiyon
+        function setCookie(name, value, days) {
+            var expires = "";
+            if (days) {
+                var date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                expires = "; expires=" + date.toUTCString();
             }
-        };
-        window.config = config;
+            document.cookie = name + "=" + (value || "") + expires + "; path=/";
+        }
+
+        // Çerezlerden bir değeri almak için bir fonksiyon
+        function getCookie(name) {
+            var nameEQ = name + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+            }
+            return null;
+        }
+
+        // Rastgele bir kullanıcı ID'si oluşturmak için bir fonksiyon
+        function generateRandomUserId() {
+            return 'user_' + Math.random().toString(36).substr(2, 9);
+        }
+
+        // Sayfa yüklendiğinde çalışacak fonksiyon
+        function initialize() {
+            var userId = getCookie('ext_user_id');
+            if (!userId) {
+                userId = generateRandomUserId();
+                setCookie('ext_user_id', userId, 7); // Çerezi 7 gün geçerli olacak şekilde ayarla
+            }
+
+            // iframe kodunu oluştur ve ekle
+            var iframeSrc = 'https://cpx-research.com/survey?code=4159&ext_user_id=' + userId + '&app_id=24159';
+            document.getElementById('survey-frame').src = iframeSrc;
+        }
     </script>
+</head>
+<body onload="initialize()">
+    <h1>Anket Sayfası</h1>
+    <iframe id="survey-frame" width="100%" height="500" frameborder="0" allowfullscreen></iframe>
 </body>
 </html>
